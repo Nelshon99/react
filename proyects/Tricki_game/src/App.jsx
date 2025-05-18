@@ -11,21 +11,22 @@ import { Game } from './components/Game.jsx'
 
 
 export function App() {
+    //Iniciamos en tablero en null
     const [board, setBoard] = useState(Array(9).fill(null))
+    //Seteamos el primer turno a X
     const [turn, setTurn] = useState(TURNS.X)
+
     //Null (No ganador) / false empate
     const [winner, setWinner] = useState(null)
 
-
-
+    //Reseteamos el juego
     const resetGame = () => {
         setBoard(Array(9).fill(null))
         setTurn(TURNS.X)
         setWinner(null)
     }
 
-
-
+    //Actualizaciones del tablero
     const updateBoard = (index) => {
         //No sobreescribir la misma casilla
         if (board[index]) return
@@ -45,11 +46,14 @@ export function App() {
             setWinner(false) //Empate
         }
     }
+
     return (
         <main className="board">
             <h1>Tricky</h1>
             <button onClick={resetGame}>Reset Juego</button>
+
             <Game updateBoard={updateBoard} board={board} />
+
             <section className='turn'>
                 <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
                 <Square isSelected={turn === TURNS.O} > {TURNS.O}</Square>
